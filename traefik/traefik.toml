@@ -1,0 +1,36 @@
+# Traefik config with LetsEncrypt HTTPS and the Docker provider.
+
+debug = false
+
+logLevel = "INFO"
+defaultEntryPoints = ["https","http"]
+
+[entryPoints]
+  [entryPoints.http]
+    address = ":80"
+    [entryPoints.http.redirect]
+      entryPoint = "https"
+  [entryPoints.https]
+    address = ":443"
+    [entryPoints.https.tls]
+      minVersion = "VersionTLS12"
+  [entryPoints.api]
+    address = ":8080"
+
+# Show Traefik's dashboard at localhost:8080.
+#[api]
+#  entryPoint = "api"
+
+[retry]
+
+[acme]
+  email = "security@your-organization.example.com"
+  storage = "/acme.json"
+  entryPoint = "https"
+  onHostRule = true
+  [acme.httpChallenge]
+    entryPoint = "http"
+
+[docker]
+  watch = true
+  exposedByDefault = false

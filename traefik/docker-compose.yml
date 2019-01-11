@@ -1,0 +1,22 @@
+version: '3.7'
+
+networks:
+  proxy_net:
+    external: true
+
+services:
+  proxy:
+    image: traefik:v1.7.6-alpine
+    restart: always
+    ports:
+      - '80:80'
+      - '443:443'
+      - '8080:8080'  # Traefik dashboard, remove when everything works for you
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./traefik.toml:/traefik.toml:ro
+      - ./acme.json:/acme.json
+    networks:
+      proxy_net:
+
+# vim: et ts=2 sw=2

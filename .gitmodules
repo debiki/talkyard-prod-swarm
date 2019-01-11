@@ -1,0 +1,3 @@
+[submodule "talkyard-versions"]
+	path = talkyard-versions
+	url = https://github.com/debiki/talkyard-versions.git
