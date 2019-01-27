@@ -1,25 +1,33 @@
 Talkyard for Docker Swarm and Compose
 =====================================
 
-Here are Docker Swarm and Docker-Compose template files that you can use to integrate Talkyard into your already existing Docker Swarm or Docker-Compose installation.
+Here are Docker Swarm and Docker-Compose template files that you can use
+to integrate Talkyard into your already existing Docker Swarm or
+Docker-Compose installation.
 
-There are `${REPO_NAME}` placeholders so you can use your own Docker repository with your own images.
+There're `${DOCKER_REPOSITORY}` and `${TALKYARD_VERSION_TAG}` placeholders,
+so you can optionally use your own Docker repository, with your own images
+and version numbers.
 
-Currently only Docker-Compose; Swarm not yet tested (but should be fairly similar?).
-Would maybe need to run `envsubst` to update variables in a Swarm stack config file,
-before deploying? Like this?:  `export $(grep -v '^#' .env | xargs -d '\n') envsubst < .env`, see: https://stackoverflow.com/questions/19331497/set-environment-variables-from-file-of-key-pair-values.
+Currently this has been tested with Docker-Compose only, not Swarm.
+To make all this work with Docker Swarm too, then,
+would probably need to run `envsubst` to update variables in a Swarm stack config file,
+before deploying? Like this?:
+`export $(grep -v '^#' .env | xargs -d '\n') envsubst < .env`,
+see: https://stackoverflow.com/questions/19331497/set-environment-variables-from-file-of-key-pair-values.
 Or like this?: `sh -ac ' . ./.env; envsubst < .env'`, see https://serverfault.com/a/540484/44112.
-
-If you'd like to install on a new server, dedicated to Talkyard only — then
-probably it's simpler for you to use https://github.com/debiki/talkyard-prod-one instead.
 
 **Missing:** Automatic backups. Probably there'll be an image that
 backups the database and uploaded files regularly, to the talkyard-backups Docker volume.
-It'd be your responsibility to mirror (e.g. via rsync) this volume's contents to a safe
+It'll be your responsibility to mirror (e.g. via rsync) this volume's contents to a safe
 place.
 
-**Missing:** Automatic upgrades. Do you want that? Or you'd rather run `git pull`
-and `docker-compose restart` (se below) yourself?
+**Missing:** Automatic upgrades. What about a script that you can install as a cron job,
+which does `git pull` to get the latest version, and then does `docker-compose restart`?
+
+If you'd like to install on a new server, dedicated to Talkyard only, then,
+probably simpler for you to use https://github.com/debiki/talkyard-prod-one instead.
+*Talkyard-prod-one* already does automatic backups and upgrades.
 
 
 Usage example
@@ -53,7 +61,7 @@ Download:
 ```
 sudo -i
 cd /opt/
-git clone https://github.com/kajmagnus/talkyard-prod-swarm.git
+git clone https://github.com/debiki/talkyard-prod-swarm.git
 cd talkyard-prod-swarm
 git submodule update --init
 ```
