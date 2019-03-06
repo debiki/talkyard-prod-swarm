@@ -108,7 +108,8 @@ Compose and Swarm config files:
 cd /opt/talkyard-prod-swarm/talkyard-versions
 git pull
 cd ..
-docker-compose restart
+docker-compose down
+docker-compose up  # will download new images
 ```
 
 You can override the default settings in `docker-compose.override.yml`.
