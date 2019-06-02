@@ -16,6 +16,7 @@ before deploying? Like this?:
 `export $(grep -v '^#' .env | xargs -d '\n') envsubst < .env`,
 see: https://stackoverflow.com/questions/19331497/set-environment-variables-from-file-of-key-pair-values.
 Or like this?: `sh -ac ' . ./.env; envsubst < .env'`, see https://serverfault.com/a/540484/44112.
+Or: *"You right about .env file but this issue usually can be fixed by this way: `env $(cat .env | grep ^[A-Z] | xargs) docker stack deploy`"* [see here, the answer's first comment reply](https://stackoverflow.com/a/45993497/694469).
 
 **Missing:** Automatic backups. Probably there'll be an image that
 backups the database and uploaded files regularly, to the talkyard-backups Docker volume.
