@@ -110,7 +110,8 @@ cd /opt/talkyard-prod-swarm/talkyard-versions
 git pull
 cd ..
 docker-compose down
-docker-compose up  # will download new images
+docker-compose up -d  # will download new images
+docker-compose logs -f --tail 999
 ```
 
 You can override the default settings in `docker-compose.override.yml`.
